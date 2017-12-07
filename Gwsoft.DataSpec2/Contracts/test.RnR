@@ -1,0 +1,37 @@
+#################################################
+#	易致协议规范 Ver3.2 (接入网关)		#
+#################################################
+
+#枚举定义
+[Define]
+#EASE成功标识(short)
+EaseSuccessFlag=short=>{Error:-1, UnKnown:0, Success:1010, SuccessUserAgent:1020, SuccessExpress:1120}
+
+
+[RequestContract]
+#数据结构兼容协议(可选)
+!Compatibility = Ease/3.2
+#数据结构兼容协议参考地址(可选)
+!Compatibility-Reference = http://server.ease/contracts/ease/index.shtml
+
+#网络连接成功标志(1010 - 网络连接成功)
+ESP_SuccessFlag = EaseSuccessFlag
+#客户端自定义包序号（0 – 心跳包 ，其它值为客户端自定义序号）
+ESP_CustomeCode = int
+#请求包后续长度(不包含此参数长度)
+ESP_LeaveLength = int
+
+#应用请求数据(通过接入网关转发的数据)
+ESP_TransferData = byte[ESP_LeaveLength]
+
+
+[ResponseContract]
+!Compatibility = Ease/3.2
+#网络连接成功标志(1010 - 网络连接成功)
+ESP_SuccessFlag = EaseSuccessFlag
+#客户端自定义包序号（回传此参数）
+ESP_CustomCode = int
+#返回包数据长度(后续字节数)
+ESP_LeaveLength = int
+#应用数据
+ESP_TransferData = byte[ESP_LeaveLength]

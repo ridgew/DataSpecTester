@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4C86C4C9-DA6C-4403-82EB-B493AB79B1EA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataSpecTester</RootNamespace>
+    <AssemblyName>DataSpecTester</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <StartupObject>DataSpecTester.Program</StartupObject>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'UnitTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\UnitTest\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cap\DNSHeader.cs" />
+    <Compile Include="Cap\IPHeader.cs" />
+    <Compile Include="Cap\TCPHeader.cs" />
+    <Compile Include="Cap\UDPHeader.cs" />
+    <Compile Include="Desktop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Desktop.Capture.cs">
+      <SubType>Form</SubType>
+      <DependentUpon>Desktop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Desktop.DataView.cs">
+      <SubType>Form</SubType>
+      <DependentUpon>Desktop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Desktop.Designer.cs">
+      <DependentUpon>Desktop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Desktop.Protocol.cs">
+      <SubType>Form</SubType>
+      <DependentUpon>Desktop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtractCapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExtractCapForm.Designer.cs">
+      <DependentUpon>ExtractCapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericProtocolManager.cs" />
+    <Compile Include="Html\HtmlBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Html\IHtmlDataProvider.cs" />
+    <Compile Include="Html\HtmlDataProvider.cs" />
+    <Compile Include="InterfaceViewMode.cs" />
+    <Compile Include="ITesterPlug.cs" />
+    <Compile Include="NodeTagSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NodeTagSet.Designer.cs">
+      <DependentUpon>NodeTagSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PicViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PicViewForm.Designer.cs">
+      <DependentUpon>PicViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Desktop.resx">
+      <DependentUpon>Desktop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtractCapForm.resx">
+      <DependentUpon>ExtractCapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NodeTagSet.resx">
+      <DependentUpon>NodeTagSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PicViewForm.resx">
+      <DependentUpon>PicViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx" />
+    <None Include="App.config" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="TesterPlugConfig.cs" />
+    <Compile Include="TraceOut.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+    <None Include="icons\struct.gif" />
+    <None Include="icons\Property.gif" />
+    <None Include="icons\Method.gif" />
+    <None Include="icons\Field.gif" />
+    <None Include="icons\ExtensionMethod.gif" />
+    <None Include="icons\EnumItem.gif" />
+    <None Include="icons\enum.gif" />
+    <None Include="icons\Constant.gif" />
+    <None Include="icons\class.gif" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gwsoft.DataSpec\Gwsoft.DataSpec.csproj">
+      <Project>{114001D2-D0DB-4169-8427-A3143E6E561E}</Project>
+      <Name>Gwsoft.DataSpec</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

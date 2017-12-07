@@ -1,0 +1,168 @@
+﻿数据规范文件编写定义(ini文件配置版本)
+
+	作者:Ridge Wong (Ver 0.10 2010-11-12)
+
+
+一：定义一个请求应答格式文件(RnR文件)
+
+	一个标准的RnR文件定义至少包含以下两个节点区间定义：
+	[RequestContract]		数据请求契约定义
+	[ResponseContract]		数据应答契约定义
+	
+	同时，还可包含已占用的节点区间
+	[Define]			定义枚举数据（基于数字型的命名对象）
+	除上述三个节点之外的其他节点，将被识别为留用或引用的数据契约对象定义。
+
+
+二：定义枚举
+
+	完整示例：
+	
+	[Define]
+	#操作类型(byte)
+	CommandType=byte=>{None:0/*无任何操作*/, SMS:1/*发送短信*/, WAP:2/*调用WAP浏览器*/, Dial:3/*拨打电话*/, Updatable:4/*主程序存在更新，下载主程序*/}
+	
+	上述定义操作类型枚举CommandType，其枚举积累性为byte,具体的数据项定义为符号'=>'之后"{}"内的内容。
+	/**/标志为数据项注释，注释内暂不支持数据项分隔特殊字符——","。
+	紧临操作类型上面的#注释在这里为CommandType的注释说明。
+	
+	注意：一个枚举数据，必须在一行定义完整，不之后换行的枚举数据定义。
+
+
+
+三：定义数据契约(Spec文件)
+
+	1. 格式：节点名称即为数据契约名称，例[EaseString]，表示自定义字符串二进制传输契约，命名为"EaseString"。
+	
+	#字符串为空时，此处为0						//数据项注释
+	ESP_Length=short						// 数据项定义：名称为ESP_Length，数据类型为short。
+	
+	目前系统识别的内置数据类型为：
+	
+	1字节长度							byte,sbyte, bool
+	2字节长度							short,ushort
+	4字节长度							single,char,int,uint
+	8字节长度							double,long,ulong
+	
+	不在此之内的其他数据类型，须有在此基础上编写新的Spec定义。
+	
+	
+	2. 数组定义
+	
+	在数据类型之后添加字符"[]", 括号内需指定数组长度。
+	如果该数据长度为上一个数据项定义的数字长度，则可使用"[-1]"定义。其他长度，则定义为[ItemName]，ItemName为同级的数据项名称。
+	例：
+	
+	#字符串为空时，此处为0
+	ESP_Length=short
+	#字符串为空时，此处不存在
+	ESP_Data=byte[-1]					//此处定义成byte[ESP_Length]也可
+	
+	3. 采用简易表达式定义数据项的传输条件
+	例：{ ESP_SuccessFlag == 1020 } 定义在数据项数据之后，表示仅在当前请求上下文中“ESP_SuccessFlag == 1020”时才传输。
+	注：表达式的运送结果必须为布尔值，如定义“{ ESP_SuccessFlag++ }”则为错误的定义。
+	
+
+四：数据项关键字宏
+
+	关键字宏的键名称以特定字符'!'开始，目前已采用的关键字空及其代表意义如下：
+	
+	!Compatibility					数据结构兼容协议(可选,备用)
+	!Compatibility-Reference			数据结构兼容协议参考地址(可选)
+	!Import						导入关联应用Spec文件，可以只使用文件名
+	!Base						以派生方式继承所有该数据契约(Spec)的所有传输数据项
+	
+	
+五：如何定义复杂对象
+
+	1. 定义多个Spec文件做基本数据文件，然后采用宏!import项导入。
+	2. 使用宏!Base定义类似与继承方式的数据契约。
+
+
+六：与其他代码库之间的数据通信与交互
+
+	主要交互数据类型为Dictionary<string, object>词典，依据契约解析成词典以及依据契约输出二进制字节也是从词典中获取相关数据。
+	
+
+七：一般应用示例代码
+
+	SpecFile spec = SpecFile.ParseContractFile("..\\..\\Contracts\\test.RnR", SpecFileFormat.Ini);
+	string testBytesStr = @"03 F2 00 00 00 08 00 00 00 04 C8 02 00 B8";
+	byte[] readBytes = TypeCache.HexPatternStringToByteArray(testBytesStr);
+
+	MemoryStream readSrc = new MemoryStream(readBytes);
+	MemoryStream writeSrc = new MemoryStream();
+
+	using (StreamContext sc = new StreamContext(spec, readSrc, writeSrc))
+	{
+		//此处按请求数据契约读取为词典对象
+		Dictionary<string, object> ReqDict = sc.GetContextRequest();
+		
+		if (!SpecData.ReadAs<short>(ReqDict, "ESP_SuccessFlag").Equals((short)1010))
+		{
+		    Console.WriteLine("*读取数据错误！");
+		}
+		else
+		{
+		    sc.SetPosition(0);
+		    
+		    //此处组装应答词典对象，依据应答数据契约格式
+		    Dictionary<string, object> result = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
+		    //result["ESP_SuccessFlag"] = (short)1010;
+		    result["ESP_SuccessFlag"] = "Success";
+		    result["ESP_CustomCode"] = (int)0008;
+		    result["ESP_LeaveLength"] = (int)4;
+		    result["ESP_TransferData"] = TypeCache.HexPatternStringToByteArray(@"C8 02 00 B8");
+		    sc.WriteContextResponse(result);
+		}
+
+		if (writeSrc.Length > 0)
+		{
+		    string result = TypeCache.ByteArrayToHexString(writeSrc.ToArray());
+		    Console.WriteLine(result);
+		    Debug.Assert(testBytesStr == result);
+		}
+		else
+		{
+		    Console.WriteLine("*没有写入数据！");
+		}
+		writeSrc.Dispose();
+	}
+
+
+八：附件
+
+	test.RnR
+
+	#################################################
+	#	易致协议规范 Ver3.2 (接入网关)		#
+	#################################################
+	#枚举定义
+	[Define]
+	#EASE成功标识(short)
+	EaseSuccessFlag=short=>{Error:-1, UnKnown:0, Success:1010, SuccessUserAgent:1020, SuccessExpress:1120}
+
+	[RequestContract]
+	#数据结构兼容协议(可选)
+	!Compatibility = Ease/3.2
+	#数据结构兼容协议参考地址(可选)
+	!Compatibility-Reference = http://server.ease/contracts/ease/index.shtml
+	#网络连接成功标志(1010 - 网络连接成功)
+	ESP_SuccessFlag = EaseSuccessFlag
+	#客户端自定义包序号（0 – 心跳包 ，其它值为客户端自定义序号）
+	ESP_CustomeCode = int
+	#请求包后续长度(不包含此参数长度)
+	ESP_LeaveLength = int
+	#应用请求数据(通过接入网关转发的数据)
+	ESP_TransferData = byte[ESP_LeaveLength]
+
+	[ResponseContract]
+	!Compatibility = Ease/3.2
+	#网络连接成功标志(1010 - 网络连接成功)
+	ESP_SuccessFlag = EaseSuccessFlag
+	#客户端自定义包序号（回传此参数）
+	ESP_CustomCode = int
+	#返回包数据长度(后续字节数)
+	ESP_LeaveLength = int
+	#应用数据
+	ESP_TransferData = byte[ESP_LeaveLength]

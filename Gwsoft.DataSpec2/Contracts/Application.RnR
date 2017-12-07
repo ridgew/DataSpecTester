@@ -1,0 +1,171 @@
+#################################################
+#	易致协议规范 Ver3.2 (应用功能请求)	#
+#################################################
+
+#枚举定义
+[Define]
+#EASE成功标识(short)
+EaseSuccessFlag=short=>{Error:-1, UnKnown:0, Success:1010, SuccessUserAgent:1020, SuccessExpress:1120}
+#编码序号(byte)
+EaseEncode=byte=>{UTF8:0, Unicode:1, GB2312:2}
+#EASE数据压缩格式(byte)
+EaseCompress=byte=>{NoCompress:0, Lz77:1}
+#首次连网标志(1-开机 0-使用中 2-清掉缓存)
+EaseConnectState=byte=>{Working:0, StartUp:1, ClearCache:2}
+
+#网络运营商ID(byte)
+NetworkID=byte=>{ALL:0, CMCC:1, CUC:2, CTG:3}
+#客户端拨号方式(byte)
+ClientDialType=byte=>{CTNET:0, CTWAP:1}
+#客户端功能号(byte)
+RequestType=byte=>{PageV21:0/*页面请求:兼容EASE 2.1*/, Mixed:1/*页面及资源请求*/, Page:2/*页面请求*/, Resource:3/*资源请求*/, Application:4/*应用请求*/, UpdateCenter:5/*更新服务器连接地址*/}
+#服务器响应码(short 3.2-2.6.9)
+StatusCode=short=>{Exception:-1/*服务器异常*/, Success:0/*服务器处理成功*/, Updatable:1/*主程序有更新,请按照客户端更新策略下载*/}
+#操作类型(byte)
+CommandType=byte=>{None:0/*无任何操作*/, SMS:1/*发送短信*/, WAP:2/*调用WAP浏览器*/, Dial:3/*拨打电话*/, Updatable:4/*主程序存在更新，下载主程序*/}
+
+#自定义类型定义
+[EaseString]
+#字符串为空时，此处为0
+ESP_Length=short
+#字符串为空时，此处不存在
+ESP_Data=byte[]
+
+
+[RequestHeader]
+#网络连接成功标志(1010 - 网络连接成功)
+ESP_SuccessFlag=EaseSuccessFlag
+#包后续长度(不包含此参数长度)
+ESP_LeaveLength=int
+#头信息参数个数（18）存在屏幕高宽时置为20,存在拨号方式时置为21
+ESP_ParamsCount=short
+#软件ID
+ESP_SoftwareID=int
+#网络运营商ID(byte)
+ESP_NID=NetworkID
+#设备UserAgent(2010-9-2, Ridge)
+ESP_UserAgent=EaseString		{ ESP_SuccessFlag == 1020 }
+#编码格式
+ESP_EncodeType=EaseEncode
+#客户端版本号(默认为0)
+ESP_Version=int
+#机器识别码/SIM卡识别码
+ESP_IMEI=EaseString
+#是否隐藏更新(0－隐藏更新 1－正常更新)
+ESP_Update=byte
+
+#客户端协议版本号（默认为：1）
+ESP_SpecVersion=byte
+#客户端支持压缩算法(0－不压缩 1－lz77压缩算法)
+ESP_Compress=EaseCompress
+#客户端可用存储空间(单位：字节)
+ESP_StoreSize=int
+#客户端可用内存大小(单位：字节)
+ESP_MemorySize=int
+#客户端字体宽度(单位：像素)
+ESP_FontWidth=byte
+#客户端字体高度(单位：像素)
+ESP_FontHeight=byte
+#首次连网标志(1-开机 0-使用中 2-清掉缓存)
+ESP_ConnectState=EaseConnectState
+
+#业务代码
+ESP_BusinessID=short
+#会话标识（不大于50）
+ESP_SessionID=EaseString
+#客户端Cookie存储值（不大于500）
+ESP_Cookies=EaseString
+#缴费相关信息(其中BREW客户端格式：价格类型,许可类型,过期值,已下载版本序列号)
+ESP_FeeState=EaseString
+
+#屏幕宽度
+ESP_ScreenWidth=short			{ ESP_ParamsCount>18 }
+#屏幕高度
+ESP_ScreenHeight=short		{ ESP_ParamsCount>18 }
+#客户端拨号方式(byte)
+ESP_DailType=ClientDialType		{ ESP_ParamsCount>20 }
+
+#请求功能号
+ESP_Protocol=RequestType
+
+
+[ResponseHeader]
+#网络连接成功标志(1010 - 网络连接成功)
+ESP_SuccessFlag=EaseSuccessFlag
+#包后续长度(不包含此参数长度)
+ESP_LeaveLength=int
+#软件ID
+ESP_SoftwareID=int
+#会话标识（不大于50）
+ESP_SessionID=EaseString
+#请求功能号
+ESP_Protocol=RequestType
+
+
+[ResponseBase]
+#响应头信息
+ESP_Header=ResponseHeader
+#服务器端响应码(响应码不为0时弹出提示框)
+ESP_Code=StatusCode
+#响应码不为0 时弹出提示框的消息
+ESP_Message=EaseString
+#操作类型
+ESP_Method=CommandType
+#操作指令 操作类型为0 时不存在，长度为0;操作类型为1时为短信指令; 操作类型为2时为WAP链接; 操作类型为3时为电话号码; 操作类型为4时为主程序下载链接
+ESP_Command=EaseString
+
+[RequestContract]
+#数据结构兼容协议(可选)
+!Compatibility=Ease/3.2
+#数据结构兼容协议参考地址(可选)
+!Compatibility-Reference=http://server.ease/contracts/ease/index.shtml
+!Response=PackageResponse		{ ESP_PackageIndex > 0 && ESP_PackageLength > 0 }
+
+#请求头信息
+ESP_Header=RequestHeader
+#请求的包序号(为0不分包，分包首个包序号为1)
+ESP_PackageIndex=short
+#请求的包长度(为0不分包)
+ESP_PackageLength=int
+#应用服务器ID, 通常情况下和头信息中业务代码保持一致，当调用第三方应用时可能不同。
+ESP_AppServerID=int
+#应用请求长度
+ESP_AppRequestLength=int
+#应用请求数据
+ESP_AppRequestData=byte[-1]
+
+
+
+[ResponseContract]
+!Compatibility=Ease/3.2
+#网络连接成功标志(1010 - 网络连接成功)
+!base=ResponseBase
+#应用响应数据长度
+ESP_AppResponseLength=int
+#应用响应数据
+ESP_AppResponseData=byte[-1]
+
+
+
+[PackageResponse]
+#响应头信息
+ESP_Header=ResponseHeader
+#服务器端响应码(响应码不为0时弹出提示框)
+ESP_Code=StatusCode
+#响应码不为0 时弹出提示框的消息
+ESP_Message=EaseString
+#请求的包序号(分包首个包序号为1)
+ESP_PackageIndex=short
+#后续请求包的个数
+ESP_LeavePackageCount=short
+#本次分包返回的数据长度
+ESP_PackageLength=int
+
+#操作类型
+ESP_Method=CommandType
+#操作指令 操作类型为0 时不存在，长度为0;操作类型为1时为短信指令; 操作类型为2时为WAP链接; 操作类型为3时为电话号码; 操作类型为4时为主程序下载链接
+ESP_Command=EaseString
+#应用数据长度
+ESP_AppDataLen=int
+#应用字节数据
+ESP_AppDataBytes=byte[ESP_AppDataLen]
