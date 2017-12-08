@@ -44,83 +44,83 @@ namespace Gwsoft.EaseMode
         {
             BindBuilder.Instance()
                 .Add((NetworkSwitchRequest req) => req.ESP_SocketParamCount, //SOCKET头参数个数(7)
-                 (s, obj) =>
+                 (s, l, obj) =>
                  {
                      NetworkSwitchRequest cRequest = (NetworkSwitchRequest)obj;
                      if (cRequest.ESP_SuccessFlag == EaseSuccessFlag.Success)
                      {
                          cRequest.ESP_SocketParamCount = s.ReadNetworkStreamAsEntity<short>(2);
                      }
-                     return cRequest.ESP_SocketParamCount;
+					 return new PropertyBindState { PropertyValue = cRequest.ESP_SocketParamCount, StreamBind = true };
                  })
                  .Add((NetworkSwitchRequest req) => req.ESP_EncodeType,   //客户端编码(9)
-                 (s, obj) =>
+				 (s, l, obj) =>
                  {
                      NetworkSwitchRequest cRequest = (NetworkSwitchRequest)obj;
                      if (cRequest.ESP_SuccessFlag == EaseSuccessFlag.Success)
                      {
                          cRequest.ESP_EncodeType = s.ReadNetworkStreamAsEntity<EaseEncode>(1);
                      }
-                     return cRequest.ESP_EncodeType;
+                     return new PropertyBindState { PropertyValue = cRequest.ESP_EncodeType, StreamBind = true };
                  })
                  .Add((NetworkSwitchRequest req) => req.ESP_DataIndex,   //返回数据起始位置(11)
-                 (s, obj) =>
+				 (s, l, obj) =>
                  {
                      NetworkSwitchRequest cRequest = (NetworkSwitchRequest)obj;
                      if (cRequest.ESP_SuccessFlag == EaseSuccessFlag.Success)
                      {
                          cRequest.ESP_DataIndex = s.ReadNetworkStreamAsEntity<int>(4);
                      }
-                     return cRequest.ESP_DataIndex;
+                     return new PropertyBindState { PropertyValue = cRequest.ESP_DataIndex, StreamBind = true };
                  })
                  .Add((NetworkSwitchRequest req) => req.ESP_DateEndIndex,   //数据终止位置(13)
-                 (s, obj) =>
+				 (s, l, obj) =>
                  {
                      NetworkSwitchRequest cRequest = (NetworkSwitchRequest)obj;
                      if (cRequest.ESP_SuccessFlag == EaseSuccessFlag.Success)
                      {
                          cRequest.ESP_DateEndIndex = s.ReadNetworkStreamAsEntity<int>(4);
                      }
-                     return cRequest.ESP_DateEndIndex;
+                     return new PropertyBindState { PropertyValue = cRequest.ESP_DateEndIndex, StreamBind = true };
                  })
                  .Add((NetworkSwitchRequest req) => req.ESP_AppServerID,   //应用服务器的地址ID(15)
-                 (s, obj) =>
+				 (s, l, obj) =>
                  {
                      NetworkSwitchRequest cRequest = (NetworkSwitchRequest)obj;
                      if (cRequest.ESP_SuccessFlag == EaseSuccessFlag.Success)
                      {
                          cRequest.ESP_AppServerID = s.ReadNetworkStreamAsEntity<short>(2);
                      }
-                     return cRequest.ESP_AppServerID;
+                     return new PropertyBindState { PropertyValue = cRequest.ESP_AppServerID, StreamBind = true };
                  })
                  .Add((NetworkSwitchRequest req) => req.ESP_Link,   //请求链接(17)
-                 (s, obj) =>
+				 (s, l, obj) =>
                  {
                      NetworkSwitchRequest cRequest = (NetworkSwitchRequest)obj;
                      //45
                      if (cRequest.ESP_SuccessFlag == EaseSuccessFlag.Success)
                      {
-                         cRequest.ESP_Link = s.DataBind<EaseString>();
+                         cRequest.ESP_Link = s.DataBind<EaseString>(l);
                      }
-                     return cRequest.ESP_Link;
+                     return new PropertyBindState { PropertyValue = cRequest.ESP_Link, StreamBind = true };
                  })
                  .Add((NetworkSwitchRequest req) => req.ESP_TransferLength,   //应用请求数据(19)
-                 (s, obj) =>
+				 (s, l, obj) =>
                  {
                      NetworkSwitchRequest cRequest = (NetworkSwitchRequest)obj;
                      if (cRequest.ESP_SuccessFlag == EaseSuccessFlag.Success)
                      {
                          cRequest.ESP_TransferLength = s.ReadNetworkStreamAsEntity<int>(4);
                      }
-                     return cRequest.ESP_TransferLength;
+                     return new PropertyBindState { PropertyValue = cRequest.ESP_TransferLength, StreamBind = true };
                  })
                  .Add((NetworkSwitchRequest req) => req.ESP_TransferData,   /*ESP_TransferData*/
-                 (s, obj) =>
+				 (s, l, obj) =>
                  {
                      NetworkSwitchRequest cRequest = (NetworkSwitchRequest)obj;
                      int readLen = (cRequest.ESP_SuccessFlag == EaseSuccessFlag.Success) ? cRequest.ESP_TransferLength : cRequest.ESP_LeaveLength;
                      cRequest.ESP_TransferData = s.ReadNetworkStreamBytes(readLen, true);
-                     return cRequest.ESP_TransferData;
+					 return new PropertyBindState { PropertyValue = cRequest.ESP_TransferData, StreamBind = true };
                  })
                  .End<NetworkSwitchRequest>();
         }
@@ -218,7 +218,7 @@ namespace Gwsoft.EaseMode
         {
             System.IO.MemoryStream ms = ESP_TransferData.AsMemoryStream();
             RequestBase subReq = null;
-            RequestHeader header = SpecUtil.DataBind<RequestHeader>(ms);
+            RequestHeader header = SpecUtil.DataBind<RequestHeader>(ms, 0);
             switch (header.ESP_Method)
             { 
                 case RequestType.PageV21 :

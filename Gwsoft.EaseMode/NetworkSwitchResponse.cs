@@ -127,44 +127,44 @@ namespace Gwsoft.EaseMode
         {
             BindBuilder.Instance()
                .Add((NetworkSwitchResponse resp) => resp.ESP_DataTotalLength, //应用服务器返回数据总长度(7)
-                (s, obj) =>
+				(s, l, obj) =>
                 {
                     NetworkSwitchResponse cResponse = (NetworkSwitchResponse)obj;
                     if (cResponse.ESP_SuccessFlag == EaseSuccessFlag.Success)
                     {
                         cResponse.ESP_DataTotalLength = s.ReadNetworkStreamAsEntity<int>(4);
                     }
-                    return cResponse.ESP_DataTotalLength;
+					return new PropertyBindState { PropertyValue = cResponse.ESP_DataTotalLength, StreamBind = true };
                 })
                 .Add((NetworkSwitchResponse resp) => resp.ESP_DataIndex, //本次需返回数据起始位置（首字节从0开始）(9)
-                (s, obj) =>
+				(s, l, obj) =>
                 {
                     NetworkSwitchResponse cResponse = (NetworkSwitchResponse)obj;
                     if (cResponse.ESP_SuccessFlag == EaseSuccessFlag.Success)
                     {
                         cResponse.ESP_DataIndex = s.ReadNetworkStreamAsEntity<int>(4);
                     }
-                    return cResponse.ESP_DataIndex;
+                    return new PropertyBindState { PropertyValue = cResponse.ESP_DataIndex, StreamBind = true };
                 })
                 .Add((NetworkSwitchResponse resp) => resp.ESP_DateEndIndex, //本次需返回数据终止位置(0 – 不断点续传)(11)
-                (s, obj) =>
+				(s, l, obj) =>
                 {
                     NetworkSwitchResponse cResponse = (NetworkSwitchResponse)obj;
                     if (cResponse.ESP_SuccessFlag == EaseSuccessFlag.Success)
                     {
                         cResponse.ESP_DateEndIndex = s.ReadNetworkStreamAsEntity<int>(4);
                     }
-                    return cResponse.ESP_DateEndIndex;
+                    return new PropertyBindState { PropertyValue = cResponse.ESP_DateEndIndex, StreamBind = true };
                 })
                 .Add((NetworkSwitchResponse resp) => resp.ESP_TransferData,   /*ESP_TransferData*/
-                 (s, obj) =>
+				 (s, l, obj) =>
                  {
                      NetworkSwitchResponse cResponse = (NetworkSwitchResponse)obj;
                      int targetLen = cResponse.ESP_LeaveLength;
                      if (cResponse.ESP_SuccessFlag == EaseSuccessFlag.Success) targetLen = cResponse.ESP_LeaveLength - 4 * 3;
                      //System.Diagnostics.Trace.WriteLine(string.Format("Target:{0}", targetLen), "DEBUG");
                      cResponse.ESP_TransferData = s.ReadNetworkStreamBytes(targetLen, true);
-                     return cResponse.ESP_TransferData;
+					 return new PropertyBindState { PropertyValue = cResponse.ESP_TransferData, StreamBind = true };
                  })
                 .End<NetworkSwitchResponse>();
         }

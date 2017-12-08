@@ -333,7 +333,7 @@ namespace EaseModePlugView
 
                                             if (currentRequest != null)
                                             {
-                                                ESPDataBase subResponse = ((NetworkSwitchResponse)instance).GetSubResponse(currentRequest);
+                                                ESPDataBase subResponse = ((NetworkSwitchResponse)instance).GetSubResponse(currentRequest.ESP_Header.ESP_Method);
 
                                                 nodeBind.IsESPData = true;
                                                 nodeBind.SubType = subResponse.GetType();
