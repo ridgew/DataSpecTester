@@ -1,11 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{4968A34B-7DA0-4CAA-B1E4-08F690EB3060}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSpecTester", "DataSpecTester\DataSpecTester.csproj", "{4C86C4C9-DA6C-4403-82EB-B493AB79B1EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwsoft.DataSpec", "Gwsoft.DataSpec\Gwsoft.DataSpec.csproj", "{114001D2-D0DB-4169-8427-A3143E6E561E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ref", "ref", "{4968A34B-7DA0-4CAA-B1E4-08F690EB3060}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gwsoft.EaseMode", "Gwsoft.EaseMode\Gwsoft.EaseMode.csproj", "{2A3A63B0-C228-4F69-A74C-C0B2D534EDBA}"
 EndProject
@@ -97,5 +99,8 @@ Global
 		{2A3A63B0-C228-4F69-A74C-C0B2D534EDBA} = {4968A34B-7DA0-4CAA-B1E4-08F690EB3060}
 		{13EA8DDD-2D6F-4419-8218-F3143CD2D34C} = {4968A34B-7DA0-4CAA-B1E4-08F690EB3060}
 		{55149CE3-6F57-47AF-9103-388BE8729236} = {4968A34B-7DA0-4CAA-B1E4-08F690EB3060}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3003A893-4399-4816-A767-D98706A11E1D}
 	EndGlobalSection
 EndGlobal

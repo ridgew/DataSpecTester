@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using DataSpecTester.Cap;
@@ -43,14 +42,12 @@ namespace DataSpecTester
 
             try
             {
-                _AssumeMaskAddress = System.Text.RegularExpressions.Regex.Replace(cmbInterfaces.Text, "\\.(\\d{1,3})$", ".255");
+                _AssumeMaskAddress = Regex.Replace(cmbInterfaces.Text, "\\.(\\d{1,3})$", ".255");
 
                 if (!bContinueCapturing)
                 {
                     //Start capturing the packets...
-
                     btnStart.Text = "暂停(&S)";
-
                     bContinueCapturing = true;
 
                     //For sniffing the socket to capture the packets has to be a raw socket, with the
