@@ -9,19 +9,29 @@ namespace DataSpecTester
     {
 
         /// <summary>
-        /// 请求数据视图
+        /// 数据抓包视图
         /// </summary>
-        RequestView = 0,
+        CapDateView = 0,
 
         /// <summary>
-        /// 返回数据视图
+        /// 二进制数据视图
         /// </summary>
-        ResponseView = 1,
+        BinDataView = 1,
+
+        /// <summary>
+        /// 请求数据视图
+        /// </summary>
+        RequestView = 2,
 
         /// <summary>
         /// 其他数据视图
         /// </summary>
-        OtherView = 2
+        ResponseView = 3,
+
+        /// <summary>
+        /// 其他数据视图
+        /// </summary>
+        OtherView = 4
 
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
+using System.Security.Principal;
 using System.Windows.Forms;
 using Gwsoft.DataSpec;
 
@@ -28,7 +29,11 @@ namespace DataSpecTester
 
         private void btnParse_Click(object sender, EventArgs e)
         {
-            if ((int)VieMode > 1) return;
+            if (VieMode != InterfaceViewMode.RequestView && VieMode != InterfaceViewMode.ResponseView)
+            {
+                ShowEror("当前Tab视图既不是请求(Request)视图，也不是响应(Response)视图，无须解析！", "");
+                return;
+            }
 
             if (TesterPlugConfig.Instance.CurrentPlug == null)
             {
@@ -142,7 +147,7 @@ namespace DataSpecTester
         #endregion
 
 
-        private InterfaceViewMode VieMode = InterfaceViewMode.RequestView;
+        private InterfaceViewMode VieMode = InterfaceViewMode.CapDateView;
 
 
         private void FileDragEnter(object sender, DragEventArgs e)
@@ -330,7 +335,8 @@ namespace DataSpecTester
         private void tabControlData_Selected(object sender, TabControlEventArgs e)
         {
             VieMode = (InterfaceViewMode)e.TabPageIndex;
-            //if (e.TabPageIndex < 2) Desktop_Resize(this, EventArgs.Empty);
+            if (VieMode == InterfaceViewMode.RequestView || VieMode == InterfaceViewMode.ResponseView)
+                Desktop_Resize(this, EventArgs.Empty);
         }
 
 
@@ -476,6 +482,33 @@ namespace DataSpecTester
                 cbxCharset.Items.Add(string.Format("{0} ({1}) {2}", eInfo.DisplayName, eInfo.Name, eInfo.CodePage));
             }
 
+            if (!IsAdministrator())
+            {
+                ShowEror("要使用数据抓包功能，需要以管理员方式运行！");
+            }
+            else
+            {
+                if (Environment.OSVersion.Version.Major >= 6)
+                {
+                    this.Text += "(管理员)";
+                }
+            }
+        }
+
+        public static Boolean IsAdministrator()
+        {
+            Boolean result;
+            if (Environment.OSVersion.Version.Major >= 6)
+            {
+                WindowsIdentity current = WindowsIdentity.GetCurrent();
+                WindowsPrincipal windowsPrincipal = new WindowsPrincipal(current);
+                result = windowsPrincipal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+            else
+            {
+                result = true;
+            }
+            return result;
         }
 
         private void Desktop_FormClosing(object sender, FormClosingEventArgs e)

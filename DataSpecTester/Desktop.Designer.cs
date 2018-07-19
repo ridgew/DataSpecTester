@@ -90,10 +90,10 @@
             this.btnGetDir = new System.Windows.Forms.Button();
             this.gbxPlugList = new System.Windows.Forms.GroupBox();
             this.listviewPlugIn = new System.Windows.Forms.ListView();
-            this.chCurrentUse = new System.Windows.Forms.ColumnHeader();
-            this.chName = new System.Windows.Forms.ColumnHeader();
-            this.chAssembly = new System.Windows.Forms.ColumnHeader();
-            this.chDiscription = new System.Windows.Forms.ColumnHeader();
+            this.chCurrentUse = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chAssembly = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chDiscription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.tbxPlugIn = new System.Windows.Forms.TextBox();
             this.palToolBox = new System.Windows.Forms.Panel();
@@ -163,10 +163,10 @@
             // 
             // tabControlData
             // 
+            this.tabControlData.Controls.Add(this.tabPageCap);
+            this.tabControlData.Controls.Add(this.tabPageViewData);
             this.tabControlData.Controls.Add(this.tabPageDefault);
             this.tabControlData.Controls.Add(this.tabPageResp);
-            this.tabControlData.Controls.Add(this.tabPageViewData);
-            this.tabControlData.Controls.Add(this.tabPageCap);
             this.tabControlData.Controls.Add(this.tabPagePlug);
             this.tabControlData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlData.Location = new System.Drawing.Point(0, 0);
@@ -174,16 +174,16 @@
             this.tabControlData.SelectedIndex = 0;
             this.tabControlData.Size = new System.Drawing.Size(738, 362);
             this.tabControlData.TabIndex = 0;
-            this.tabControlData.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlData_Selected);
             this.tabControlData.SelectedIndexChanged += new System.EventHandler(this.tabControlData_SelectedIndexChanged);
+            this.tabControlData.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlData_Selected);
             // 
             // tabPageDefault
             // 
             this.tabPageDefault.Controls.Add(this.splitContainerRequest);
-            this.tabPageDefault.Location = new System.Drawing.Point(4, 21);
+            this.tabPageDefault.Location = new System.Drawing.Point(4, 22);
             this.tabPageDefault.Name = "tabPageDefault";
             this.tabPageDefault.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDefault.Size = new System.Drawing.Size(730, 337);
+            this.tabPageDefault.Size = new System.Drawing.Size(730, 336);
             this.tabPageDefault.TabIndex = 0;
             this.tabPageDefault.Text = "数据请求";
             this.tabPageDefault.UseVisualStyleBackColor = true;
@@ -202,7 +202,7 @@
             // 
             this.splitContainerRequest.Panel2.Controls.Add(this.tbxReqTvDetail);
             this.splitContainerRequest.Panel2.Controls.Add(this.tvRequestView);
-            this.splitContainerRequest.Size = new System.Drawing.Size(724, 331);
+            this.splitContainerRequest.Size = new System.Drawing.Size(724, 330);
             this.splitContainerRequest.SplitterDistance = 308;
             this.splitContainerRequest.TabIndex = 0;
             // 
@@ -217,22 +217,22 @@
             this.tbxRequestBin.Multiline = true;
             this.tbxRequestBin.Name = "tbxRequestBin";
             this.tbxRequestBin.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbxRequestBin.Size = new System.Drawing.Size(308, 331);
+            this.tbxRequestBin.Size = new System.Drawing.Size(308, 330);
             this.tbxRequestBin.TabIndex = 0;
             this.tbxRequestBin.Text = global::DataSpecTester.Properties.Settings.Default.RequestHex;
             this.mainTip.SetToolTip(this.tbxRequestBin, "Ctrl + F2重排当前文本,Ctrl + F8还原Treeview中绑定对象二进制文本");
             this.tbxRequestBin.WordWrap = false;
             this.tbxRequestBin.TextChanged += new System.EventHandler(this.tbxRequestBin_TextChanged);
             this.tbxRequestBin.DragDrop += new System.Windows.Forms.DragEventHandler(this.HexStringTextBox);
+            this.tbxRequestBin.DragEnter += new System.Windows.Forms.DragEventHandler(this.FileDragEnter);
             this.tbxRequestBin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HandlerReFactoryText);
             this.tbxRequestBin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ReportByteLocation);
-            this.tbxRequestBin.DragEnter += new System.Windows.Forms.DragEventHandler(this.FileDragEnter);
             // 
             // tbxReqTvDetail
             // 
             this.tbxReqTvDetail.BackColor = System.Drawing.SystemColors.Info;
             this.tbxReqTvDetail.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbxReqTvDetail.Location = new System.Drawing.Point(0, 277);
+            this.tbxReqTvDetail.Location = new System.Drawing.Point(0, 276);
             this.tbxReqTvDetail.Multiline = true;
             this.tbxReqTvDetail.Name = "tbxReqTvDetail";
             this.tbxReqTvDetail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -322,10 +322,10 @@
             // tabPageResp
             // 
             this.tabPageResp.Controls.Add(this.splitContainerResponse);
-            this.tabPageResp.Location = new System.Drawing.Point(4, 21);
+            this.tabPageResp.Location = new System.Drawing.Point(4, 22);
             this.tabPageResp.Name = "tabPageResp";
             this.tabPageResp.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResp.Size = new System.Drawing.Size(730, 337);
+            this.tabPageResp.Size = new System.Drawing.Size(730, 336);
             this.tabPageResp.TabIndex = 1;
             this.tabPageResp.Text = "数据返回";
             this.tabPageResp.UseVisualStyleBackColor = true;
@@ -344,7 +344,7 @@
             // 
             this.splitContainerResponse.Panel2.Controls.Add(this.tbxRespTvDetail);
             this.splitContainerResponse.Panel2.Controls.Add(this.tvRespView);
-            this.splitContainerResponse.Size = new System.Drawing.Size(724, 331);
+            this.splitContainerResponse.Size = new System.Drawing.Size(724, 330);
             this.splitContainerResponse.SplitterDistance = 308;
             this.splitContainerResponse.TabIndex = 0;
             // 
@@ -359,22 +359,22 @@
             this.tbxRespBin.Multiline = true;
             this.tbxRespBin.Name = "tbxRespBin";
             this.tbxRespBin.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbxRespBin.Size = new System.Drawing.Size(308, 331);
+            this.tbxRespBin.Size = new System.Drawing.Size(308, 330);
             this.tbxRespBin.TabIndex = 1;
             this.tbxRespBin.Text = global::DataSpecTester.Properties.Settings.Default.ResponseHex;
             this.mainTip.SetToolTip(this.tbxRespBin, "Ctrl + F2重排当前文本,Ctrl + F8还原Treeview中绑定对象二进制文本");
             this.tbxRespBin.WordWrap = false;
             this.tbxRespBin.TextChanged += new System.EventHandler(this.tbxRespBin_TextChanged);
             this.tbxRespBin.DragDrop += new System.Windows.Forms.DragEventHandler(this.HexStringTextBox);
+            this.tbxRespBin.DragEnter += new System.Windows.Forms.DragEventHandler(this.FileDragEnter);
             this.tbxRespBin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HandlerReFactoryText);
             this.tbxRespBin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ReportByteLocation);
-            this.tbxRespBin.DragEnter += new System.Windows.Forms.DragEventHandler(this.FileDragEnter);
             // 
             // tbxRespTvDetail
             // 
             this.tbxRespTvDetail.BackColor = System.Drawing.SystemColors.Info;
             this.tbxRespTvDetail.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbxRespTvDetail.Location = new System.Drawing.Point(0, 277);
+            this.tbxRespTvDetail.Location = new System.Drawing.Point(0, 276);
             this.tbxRespTvDetail.Multiline = true;
             this.tbxRespTvDetail.Name = "tbxRespTvDetail";
             this.tbxRespTvDetail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -412,9 +412,9 @@
             this.tabPageViewData.Controls.Add(this.label3);
             this.tabPageViewData.Controls.Add(this.tbxInput);
             this.tabPageViewData.Controls.Add(this.label2);
-            this.tabPageViewData.Location = new System.Drawing.Point(4, 21);
+            this.tabPageViewData.Location = new System.Drawing.Point(4, 22);
             this.tabPageViewData.Name = "tabPageViewData";
-            this.tabPageViewData.Size = new System.Drawing.Size(730, 337);
+            this.tabPageViewData.Size = new System.Drawing.Size(730, 336);
             this.tabPageViewData.TabIndex = 3;
             this.tabPageViewData.Text = "数据换算";
             this.tabPageViewData.UseVisualStyleBackColor = true;
@@ -425,7 +425,7 @@
             this.cbxBase64Binary.AutoSize = true;
             this.cbxBase64Binary.BackColor = System.Drawing.Color.Maroon;
             this.cbxBase64Binary.ForeColor = System.Drawing.SystemColors.Info;
-            this.cbxBase64Binary.Location = new System.Drawing.Point(449, 303);
+            this.cbxBase64Binary.Location = new System.Drawing.Point(449, 302);
             this.cbxBase64Binary.Name = "cbxBase64Binary";
             this.cbxBase64Binary.Size = new System.Drawing.Size(60, 16);
             this.cbxBase64Binary.TabIndex = 19;
@@ -435,7 +435,7 @@
             // btnSaveToBin
             // 
             this.btnSaveToBin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSaveToBin.Location = new System.Drawing.Point(262, 299);
+            this.btnSaveToBin.Location = new System.Drawing.Point(262, 298);
             this.btnSaveToBin.Name = "btnSaveToBin";
             this.btnSaveToBin.Size = new System.Drawing.Size(108, 23);
             this.btnSaveToBin.TabIndex = 18;
@@ -447,7 +447,7 @@
             // 
             this.btnBase64De.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBase64De.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBase64De.Location = new System.Drawing.Point(621, 299);
+            this.btnBase64De.Location = new System.Drawing.Point(621, 298);
             this.btnBase64De.Name = "btnBase64De";
             this.btnBase64De.Size = new System.Drawing.Size(91, 23);
             this.btnBase64De.TabIndex = 17;
@@ -459,7 +459,7 @@
             // 
             this.btnBase64En.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBase64En.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBase64En.Location = new System.Drawing.Point(515, 299);
+            this.btnBase64En.Location = new System.Drawing.Point(515, 298);
             this.btnBase64En.Name = "btnBase64En";
             this.btnBase64En.Size = new System.Drawing.Size(86, 23);
             this.btnBase64En.TabIndex = 16;
@@ -470,7 +470,7 @@
             // btnRestore
             // 
             this.btnRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRestore.Location = new System.Drawing.Point(148, 299);
+            this.btnRestore.Location = new System.Drawing.Point(148, 298);
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(97, 23);
             this.btnRestore.TabIndex = 15;
@@ -481,7 +481,7 @@
             // btnViewData
             // 
             this.btnViewData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnViewData.Location = new System.Drawing.Point(32, 299);
+            this.btnViewData.Location = new System.Drawing.Point(32, 298);
             this.btnViewData.Name = "btnViewData";
             this.btnViewData.Size = new System.Drawing.Size(96, 23);
             this.btnViewData.TabIndex = 14;
@@ -497,7 +497,7 @@
             this.tbxBinView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbxBinView.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbxBinView.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.tbxBinView.Location = new System.Drawing.Point(98, 143);
+            this.tbxBinView.Location = new System.Drawing.Point(98, 142);
             this.tbxBinView.MaxLength = 2147483647;
             this.tbxBinView.MinimumSize = new System.Drawing.Size(605, 140);
             this.tbxBinView.Multiline = true;
@@ -515,7 +515,7 @@
             this.cbxRevert.AutoSize = true;
             this.cbxRevert.Checked = true;
             this.cbxRevert.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxRevert.Location = new System.Drawing.Point(11, 213);
+            this.cbxRevert.Location = new System.Drawing.Point(11, 212);
             this.cbxRevert.Name = "cbxRevert";
             this.cbxRevert.Size = new System.Drawing.Size(72, 16);
             this.cbxRevert.TabIndex = 12;
@@ -526,7 +526,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 174);
+            this.label5.Location = new System.Drawing.Point(18, 173);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 11;
@@ -632,9 +632,9 @@
             this.tabPageCap.Controls.Add(this.cmbInterfaces);
             this.tabPageCap.Controls.Add(this.btnStart);
             this.tabPageCap.Controls.Add(this.treeView);
-            this.tabPageCap.Location = new System.Drawing.Point(4, 21);
+            this.tabPageCap.Location = new System.Drawing.Point(4, 22);
             this.tabPageCap.Name = "tabPageCap";
-            this.tabPageCap.Size = new System.Drawing.Size(730, 337);
+            this.tabPageCap.Size = new System.Drawing.Size(730, 336);
             this.tabPageCap.TabIndex = 4;
             this.tabPageCap.Text = "数据采集";
             // 
@@ -642,7 +642,7 @@
             // 
             this.cbxUdpOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbxUdpOnly.AutoSize = true;
-            this.cbxUdpOnly.Location = new System.Drawing.Point(163, 317);
+            this.cbxUdpOnly.Location = new System.Drawing.Point(163, 316);
             this.cbxUdpOnly.Name = "cbxUdpOnly";
             this.cbxUdpOnly.Size = new System.Drawing.Size(90, 16);
             this.cbxUdpOnly.TabIndex = 12;
@@ -656,7 +656,7 @@
             this.cbxIgnoreBroadCast.AutoSize = true;
             this.cbxIgnoreBroadCast.Checked = true;
             this.cbxIgnoreBroadCast.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxIgnoreBroadCast.Location = new System.Drawing.Point(611, 305);
+            this.cbxIgnoreBroadCast.Location = new System.Drawing.Point(611, 304);
             this.cbxIgnoreBroadCast.Name = "cbxIgnoreBroadCast";
             this.cbxIgnoreBroadCast.Size = new System.Drawing.Size(84, 16);
             this.cbxIgnoreBroadCast.TabIndex = 11;
@@ -666,7 +666,7 @@
             // btnCapClear
             // 
             this.btnCapClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCapClear.Location = new System.Drawing.Point(92, 303);
+            this.btnCapClear.Location = new System.Drawing.Point(92, 302);
             this.btnCapClear.Name = "btnCapClear";
             this.btnCapClear.Size = new System.Drawing.Size(63, 23);
             this.btnCapClear.TabIndex = 10;
@@ -677,7 +677,7 @@
             // tbxDest
             // 
             this.tbxDest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbxDest.Location = new System.Drawing.Point(259, 303);
+            this.tbxDest.Location = new System.Drawing.Point(259, 302);
             this.tbxDest.Name = "tbxDest";
             this.tbxDest.Size = new System.Drawing.Size(149, 21);
             this.tbxDest.TabIndex = 9;
@@ -688,7 +688,7 @@
             // 
             this.cbxTcpOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbxTcpOnly.AutoSize = true;
-            this.cbxTcpOnly.Location = new System.Drawing.Point(163, 298);
+            this.cbxTcpOnly.Location = new System.Drawing.Point(163, 297);
             this.cbxTcpOnly.Name = "cbxTcpOnly";
             this.cbxTcpOnly.Size = new System.Drawing.Size(90, 16);
             this.cbxTcpOnly.TabIndex = 8;
@@ -700,7 +700,7 @@
             // 
             this.cmbInterfaces.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmbInterfaces.FormattingEnabled = true;
-            this.cmbInterfaces.Location = new System.Drawing.Point(414, 303);
+            this.cmbInterfaces.Location = new System.Drawing.Point(414, 302);
             this.cmbInterfaces.Name = "cmbInterfaces";
             this.cmbInterfaces.Size = new System.Drawing.Size(181, 20);
             this.cmbInterfaces.TabIndex = 7;
@@ -708,24 +708,25 @@
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnStart.Location = new System.Drawing.Point(19, 303);
+            this.btnStart.Location = new System.Drawing.Point(19, 302);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(62, 24);
             this.btnStart.TabIndex = 6;
             this.btnStart.Text = "抓包(&S)";
+            this.mainTip.SetToolTip(this.btnStart, "抓包需要运行在管理员权限下");
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // treeView
             // 
-            this.treeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView.ContextMenuStrip = this.datCapMenu;
             this.treeView.Location = new System.Drawing.Point(3, 5);
             this.treeView.Name = "treeView";
             this.treeView.ShowNodeToolTips = true;
-            this.treeView.Size = new System.Drawing.Size(724, 286);
+            this.treeView.Size = new System.Drawing.Size(724, 285);
             this.treeView.TabIndex = 1;
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
@@ -808,9 +809,9 @@
             this.tabPagePlug.Controls.Add(this.gbxPlugList);
             this.tabPagePlug.Controls.Add(this.label1);
             this.tabPagePlug.Controls.Add(this.tbxPlugIn);
-            this.tabPagePlug.Location = new System.Drawing.Point(4, 21);
+            this.tabPagePlug.Location = new System.Drawing.Point(4, 22);
             this.tabPagePlug.Name = "tabPagePlug";
-            this.tabPagePlug.Size = new System.Drawing.Size(730, 337);
+            this.tabPagePlug.Size = new System.Drawing.Size(730, 336);
             this.tabPagePlug.TabIndex = 2;
             this.tabPagePlug.Text = "插件配置";
             this.tabPagePlug.UseVisualStyleBackColor = true;
@@ -951,7 +952,7 @@
             this.cbxParseType.Size = new System.Drawing.Size(319, 20);
             this.cbxParseType.TabIndex = 1;
             this.cbxParseType.Text = "Gwsoft.EaseMode.NetworkSwitchRequest, Gwsoft.EaseMode, Version=1.0.0.0, Culture=n" +
-                "eutral, PublicKeyToken=null";
+    "eutral, PublicKeyToken=null";
             this.cbxParseType.TextChanged += new System.EventHandler(this.cbxParseType_TextChanged);
             // 
             // btnVieHex
@@ -1010,10 +1011,10 @@
             // tabPageOutput
             // 
             this.tabPageOutput.Controls.Add(this.rtxOutput);
-            this.tabPageOutput.Location = new System.Drawing.Point(4, 21);
+            this.tabPageOutput.Location = new System.Drawing.Point(4, 22);
             this.tabPageOutput.Name = "tabPageOutput";
             this.tabPageOutput.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOutput.Size = new System.Drawing.Size(730, 168);
+            this.tabPageOutput.Size = new System.Drawing.Size(730, 167);
             this.tabPageOutput.TabIndex = 0;
             this.tabPageOutput.Text = "输出";
             this.tabPageOutput.UseVisualStyleBackColor = true;
@@ -1024,17 +1025,17 @@
             this.rtxOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtxOutput.Location = new System.Drawing.Point(3, 3);
             this.rtxOutput.Name = "rtxOutput";
-            this.rtxOutput.Size = new System.Drawing.Size(724, 162);
+            this.rtxOutput.Size = new System.Drawing.Size(724, 161);
             this.rtxOutput.TabIndex = 0;
             this.rtxOutput.Text = "";
             // 
             // tabPageLog
             // 
             this.tabPageLog.Controls.Add(this.rtxLog);
-            this.tabPageLog.Location = new System.Drawing.Point(4, 21);
+            this.tabPageLog.Location = new System.Drawing.Point(4, 22);
             this.tabPageLog.Name = "tabPageLog";
             this.tabPageLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLog.Size = new System.Drawing.Size(730, 168);
+            this.tabPageLog.Size = new System.Drawing.Size(730, 167);
             this.tabPageLog.TabIndex = 1;
             this.tabPageLog.Text = "日志";
             this.tabPageLog.UseVisualStyleBackColor = true;
@@ -1045,7 +1046,7 @@
             this.rtxLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtxLog.Location = new System.Drawing.Point(3, 3);
             this.rtxLog.Name = "rtxLog";
-            this.rtxLog.Size = new System.Drawing.Size(724, 162);
+            this.rtxLog.Size = new System.Drawing.Size(724, 161);
             this.rtxLog.TabIndex = 1;
             this.rtxLog.Text = "";
             // 
@@ -1053,9 +1054,9 @@
             // 
             this.tabPageHexview.BackColor = System.Drawing.Color.Transparent;
             this.tabPageHexview.Controls.Add(this.tbxHexview);
-            this.tabPageHexview.Location = new System.Drawing.Point(4, 21);
+            this.tabPageHexview.Location = new System.Drawing.Point(4, 22);
             this.tabPageHexview.Name = "tabPageHexview";
-            this.tabPageHexview.Size = new System.Drawing.Size(730, 168);
+            this.tabPageHexview.Size = new System.Drawing.Size(730, 167);
             this.tabPageHexview.TabIndex = 2;
             this.tabPageHexview.Text = "二进制查看器";
             this.tabPageHexview.UseVisualStyleBackColor = true;
@@ -1072,7 +1073,7 @@
             this.tbxHexview.Multiline = true;
             this.tbxHexview.Name = "tbxHexview";
             this.tbxHexview.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbxHexview.Size = new System.Drawing.Size(730, 168);
+            this.tbxHexview.Size = new System.Drawing.Size(730, 167);
             this.tbxHexview.TabIndex = 0;
             this.tbxHexview.Text = global::DataSpecTester.Properties.Settings.Default.HexAsciiView;
             this.tbxHexview.WordWrap = false;
@@ -1083,9 +1084,9 @@
             // tabPageHtml
             // 
             this.tabPageHtml.Controls.Add(this.htmlBrowser);
-            this.tabPageHtml.Location = new System.Drawing.Point(4, 21);
+            this.tabPageHtml.Location = new System.Drawing.Point(4, 22);
             this.tabPageHtml.Name = "tabPageHtml";
-            this.tabPageHtml.Size = new System.Drawing.Size(730, 168);
+            this.tabPageHtml.Size = new System.Drawing.Size(730, 167);
             this.tabPageHtml.TabIndex = 3;
             this.tabPageHtml.Text = "Text/HTML";
             this.tabPageHtml.UseVisualStyleBackColor = true;
@@ -1096,7 +1097,7 @@
             this.htmlBrowser.Location = new System.Drawing.Point(0, 0);
             this.htmlBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.htmlBrowser.Name = "htmlBrowser";
-            this.htmlBrowser.Size = new System.Drawing.Size(730, 168);
+            this.htmlBrowser.Size = new System.Drawing.Size(730, 167);
             this.htmlBrowser.TabIndex = 0;
             // 
             // Desktop
@@ -1111,10 +1112,10 @@
             this.Name = "Desktop";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ESP数据规范调试器";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Desktop_FormClosing);
             this.Load += new System.EventHandler(this.Desktop_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Desktop_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Desktop_DragEnter);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Desktop_FormClosing);
             this.Resize += new System.EventHandler(this.Desktop_Resize);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
